@@ -10,3 +10,4 @@ const authorize = (req) => {
 };
 
 export default {authorize};
+
