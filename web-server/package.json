@@ -7,7 +7,7 @@
     "test": "jest",
     "start": "node index.js"
   },
-  "author": "maxwell rediker and autumn curtis",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.3",
