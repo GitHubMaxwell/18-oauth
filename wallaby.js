@@ -1,15 +1,16 @@
 module.exports = function (wallaby) {
 
   return {
-  
+
     files: [
-      'src/**/*.js',
+      'auth-server/**/*.js',
+      // 'web-server/**/*.js',
     ],
-  
+
     tests: [
-      '__test__/**/*.test.js',
+      'auth-server/__test__/**/*.test.js',
     ],
-  
+
     testFramework: 'jest',
     env: {
       type: 'node',
