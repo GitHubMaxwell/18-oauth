@@ -22,8 +22,8 @@ describe('Authentication Server', () => {
 
   it('gets a 401 on a bad login', () => {
     return superagent.get('http://localhost:8888/signin')
-      .then(response => {
-      })
+      // .then(response => {
+      // })
       .catch(response => {
         expect(response.status).toEqual(401);
       });
@@ -32,8 +32,8 @@ describe('Authentication Server', () => {
   it('gets a 401 on a bad login', () => {
     return superagent.get('http://localhost:8888/signin')
       .auth('foo','bar')
-      .then(response => {
-      })
+      // .then(response => {
+      // })
       .catch(response => {
         expect(response.status).toEqual(401);
       });

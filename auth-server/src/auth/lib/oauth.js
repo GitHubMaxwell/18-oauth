@@ -3,9 +3,7 @@
 
 import superagent from 'superagent';
 
-import express from 'express';
-
-
+// import express from 'express';
 
 import User from '../model';
 
@@ -19,7 +17,7 @@ const authorize = (req) => {
   ///oauth?code=37f4dc314318cecadbe5&state=autumn
 
   let code = req.query.code;
-  console.log('(1 Got code from Github)');
+  console.log('(1 Got code from Github)', code);
   //have the code so we want to exchange it for a token
 
   //i dont know what this has to be sent as / google requires it to be a form
@@ -37,7 +35,9 @@ const authorize = (req) => {
       //by default the access token takes the follwing form
       //access_token=e72e16c7e42f292c6912e7710c838347ae178b4a&token_type=bearer
       let gitHubToken = response.body.access_token;
-      console.log('(2) got a token from Github');
+      console.log('(2) got a token from Github response body', response.body);
+
+      console.log('(2) got a token from Github', gitHubToken);
       return gitHubToken;
     })
     .then(token => {
@@ -48,7 +48,7 @@ const authorize = (req) => {
         // .set('Authorization', `Bearer ${token}`)
         .then( response => {
           let user = response.body;
-          console.log('(3) You are ', user);
+          console.log('(3) Got User info');
           return user;
         });
       //  console.log('OH Boy');

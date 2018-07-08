@@ -3,6 +3,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+// import { getMaxListeners } from 'cluster';
 
 const userSchema = new mongoose.Schema({
   username: {type: String, required: true, unique: true},
@@ -46,19 +47,27 @@ userSchema.statics.authorize = function(token) {
 // 
 userSchema.statics.createFromOAuth = function(incomingUser) {
 
-  if(!incomingUser || !incomingUser.email) {
+  if(!incomingUser.email) {
+    // Github object shows my email:null 
+    incomingUser.email = 'notgiven@gmail.com';
+  }
+
+  // if(!incomingUser || !incomingUser.email) {
+  if(!incomingUser) {
     return Promise.reject('Invalid Thing');
   }
+
   return this.findOne({email:incomingUser.email})
     .then( user => {
       if(!user) {
         throw new Error('User Not Found');
-        //throwing this error forces us into the catch block below
+        // throwing this error forces us into the catch block below
       }
       console.log('Welcome Back');
       return user;
     })
     .catch( error => {
+      console.log(error.status);
       let username = incomingUser.name;
       let password = 'n/a';
       return this.create({

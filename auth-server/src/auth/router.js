@@ -18,7 +18,7 @@ authRouter.post('/signup', (req, res, next) => {
     .catch(next);
 });
 
-authRouter.get('/login',auth, (req, res, next) => {
+authRouter.get('/login',auth, (req, res) => {
   res.cookie('auth', req.token);
   res.send(req.token);
 });
@@ -26,7 +26,7 @@ authRouter.get('/login',auth, (req, res, next) => {
 authRouter.get('/oauth', (req, res, next) => {
   // console.log('Ouch Github');
   // res.send('foobar');
-  //http://localhost:3000/oauth?code=2ef8b2f31d69b6900148&state=autumn
+  // http://localhost:3000/oauth?code=2ef8b2f31d69b6900148&state=autumn
   // parse the code out 
   // do a redirect here
   // env file CLIENT_URL
@@ -38,12 +38,9 @@ authRouter.get('/oauth', (req, res, next) => {
   // set a cookie with the token adn the redirect
   oauth.authorize(req)
     .then( token => {
-      console.log('TOKEN?', token);
-      //token is undefined
-      //token now comes back as Invalid%20Thing
       res.cookie('auth',token);
-      console.log('RESPONSE', res.cookie);
-      //this comes back as a function?
+      // console.log('RESPONSE', res.cookie);
+      // this comes back as a function?
       res.redirect(`${URL}?token=${token}`);
     })
     .catch(next);
@@ -52,7 +49,7 @@ authRouter.get('/oauth', (req, res, next) => {
 
 // A little proof of life here, to show how we can protect any
 // route with our auth middleware
-authRouter.get('/showMeTheMoney', auth, (req,res,next) => {
+authRouter.get('/showMeTheMoney', auth, (req,res) => {
   res.send('Here is all the ca$h');
 });
 
