@@ -1,23 +1,18 @@
 ![cf](http://i.imgur.com/7v5ASc8.png) OAuth
 ===
+## OAUTH with Github
+https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/
 
-## Submission Instructions
-  * Follow the instructions in the "Lab Instructions" documentation in the reference folder of the class repository
-  
-## Learning Objectives  
-* Students will learn to add Google OAuth to an express/mongo app
-
-## Requirements  
-
-#### backend
-* create an app on the google dev console
- * configure oauth credentials to support a client app on `http://localhost`
- * configure oauth credentials to support a server redirect uri to `http://localhost:3000/oauth/google/code`
-* create a backend route in your auth server: `GET /oauth/google/code` for handling google oauth 
-
-#### frontend 
-* create an index.html with an anchor tag pointing to the google authorization page 
-* configure the query string with correct key value pairs
-
-#### Documentation  
-Write a description of the project in your README.md, including detailed instructions for how to build your app. In your frontend README.md add a code block with your frontend .env vars, and in your backend README.md add a code block with your backend .env vars. 
+## Instructions
+* fork / clone down
+* make env file for BACK-end (in auth-server folder)
+* copy paste env vars from auth-server README into .env file
+* turn on mongod
+* turn on auth-server in separate terminal window = node index.js
+* turn on web-server in separate terminal window = node index.js
+* open chrome and go to localhost:8080
+* click login with github
+* in chrome dev tools > Application tab > cookies > copy "auth" cookie JWT
+* with Mod Header chrome plugin enter the Authorization Bearer <JWT>
+* reload page and see "show me all the ca$h"
+* this is the same process John showed in the class demo
