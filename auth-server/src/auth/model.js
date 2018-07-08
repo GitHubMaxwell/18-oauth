@@ -3,6 +3,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+// import { getMaxListeners } from 'cluster';
 
 const userSchema = new mongoose.Schema({
   username: {type: String, required: true, unique: true},
@@ -42,6 +43,42 @@ userSchema.statics.authorize = function(token) {
     })
     .catch(error => error);
 };
+////////////////////////////////////////
+// 
+userSchema.statics.createFromOAuth = function(incomingUser) {
+
+  if(!incomingUser.email) {
+    // Github object shows my email:null 
+    incomingUser.email = 'notgiven@gmail.com';
+  }
+
+  // if(!incomingUser || !incomingUser.email) {
+  if(!incomingUser) {
+    return Promise.reject('Invalid Thing');
+  }
+
+  return this.findOne({email:incomingUser.email})
+    .then( user => {
+      if(!user) {
+        throw new Error('User Not Found');
+        // throwing this error forces us into the catch block below
+      }
+      console.log('Welcome Back');
+      return user;
+    })
+    .catch( error => {
+      console.log(error.status);
+      let username = incomingUser.name;
+      let password = 'n/a';
+      return this.create({
+        username:username,
+        password:password,
+        email:incomingUser.email,
+      });
+    });
+};
+
+////////////////////////////////////////
 
 // Compare a plain text password against the hashed one we have saved
 userSchema.methods.comparePassword = function(password) {
