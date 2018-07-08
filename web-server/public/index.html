@@ -122,8 +122,10 @@
           let options = {
             client_id:'f9f84276db9ae134f7de',
             redirect_uri: 'http://localhost:3000/oauth',
+            scope: 'read:user',
             state: 'autumn',
             allow_signup: 'true',
+            //this allows the option to sign up for github at the sign in moment / default to true so set it to false if you dont wnat or policy dictates
           }
 
           let QueryString = Object.keys(options).map( (key,i) => {
